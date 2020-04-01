@@ -1,0 +1,1171 @@
+#include<iostream>
+#include<cstdio>
+#include<algorithm>
+#include<string>
+#include<stdlib.h>
+#include<time.h>
+#include<windows.h>
+#include<conio.h>
+#define random(x) (rand()%x)
+using namespace std;
+int x,y,time1,rp=10,num=0,s;
+int x1,y1,x2,y2,rp1=10,rp2=10,fh=1,hurt=1;
+char way,bway;
+char way1,way2;
+char map[3][33][33]= 
+{
+	{
+		{'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'},
+		{'0','*','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','.','*','0'},
+		{'0','.','*','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','*','.','0'},
+		{'0','.','.','*','.','.','.','.','.','.','*','.','.','*','.','.','.','.','*','.','.','0'},
+		{'0','.','.','.','*','.','.','.','.','.','*','.','.','.','.','.','.','*','.','.','.','0'},
+		{'0','.','.','.','.','*','.','.','*','.','.','.','.','.','.','.','*','.','.','.','.','0'},
+		{'0','.','.','.','.','.','*','.','.','.','*','.','.','.','.','*','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','*','.','.','*','.','.','.','*','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','*','.','*','.','.','*','.','.','.','.','.','.','.','0'},
+		{'0','*','*','*','*','*','*','.','*','*','*','.','*','*','*','*','*','*','*','.','*','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','*','.','*','*','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','*','.','.','*','.','*','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','*','.','.','.','*','.','.','*','.','.','.','.','.','*','0'},
+		{'0','.','.','.','.','.','*','.','.','.','.','*','.','.','.','*','.','.','.','.','.','0'},
+		{'0','.','.','.','.','*','.','.','.','*','.','.','.','.','.','.','*','.','.','.','.','0'},
+		{'0','.','.','.','*','.','.','.','.','.','.','*','.','.','.','.','.','*','.','.','.','0'},
+		{'0','.','.','*','.','.','.','.','.','.','.','*','.','.','.','.','.','.','*','.','.','0'},
+		{'0','.','*','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','*','.','0'},
+		{'0','*','.','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','*','0'},
+		{'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'},
+	},
+	{
+		{'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'},
+		{'0','*','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','*','0'},
+		{'0','.','*','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','*','.','0'},
+		{'0','.','.','*','.','.','.','.','.','.','.','.','.','.','.','.','.','.','*','.','.','0'},
+		{'0','.','.','.','*','.','.','.','.','.','.','.','.','.','.','.','.','*','.','.','.','0'},
+		{'0','.','.','.','.','*','.','.','.','.','.','.','.','.','.','.','*','.','.','.','.','0'},
+		{'0','.','.','.','.','.','*','.','.','.','.','.','.','.','.','*','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','*','.','.','.','.','.','.','*','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','*','.','.','.','.','*','.','.','.','.','.','.','.','0'},
+		{'0','*','.','*','*','*','*','*','*','*','.','.','*','*','*','*','*','*','*','.','*','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','*','.','.','*','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','*','.','.','.','.','*','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','*','.','.','.','.','.','.','*','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','*','.','.','.','.','.','.','.','.','*','.','.','.','.','.','0'},
+		{'0','.','.','.','.','*','.','.','.','.','.','.','.','.','.','.','*','.','.','.','.','0'},
+		{'0','.','.','.','*','.','.','.','.','.','.','.','.','.','.','.','.','*','.','.','.','0'},
+		{'0','.','.','*','.','.','.','.','.','.','.','.','.','.','.','.','.','.','*','.','.','0'},
+		{'0','.','*','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','*','.','0'},
+		{'0','*','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','*','0'},
+		{'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'},
+	},
+	{
+		{'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','0'},
+		{'0','*','.','*','*','*','*','*','*','*','.','.','*','*','*','*','*','*','*','.','*','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','.','0'},
+		{'0','.','.','.','.','.','.','.','.','.','.','*','.','.','.','.','.','.','.','.','.','0'},
+		{'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'},
+	},
+};
+struct wu_qi1
+{ 
+	int x,y;
+	char way;
+	bool now; 
+} zi_dan,zidan;
+struct people
+{ 
+	int rp,last,x,y,hurt; 
+} boss;
+struct wu_qi
+{ 
+	char way;
+	int x,y;
+	bool now; 
+} zidan1,zidan2;
+void color(short x)	
+{
+    if(x>=0&&x<=15)
+    {
+    	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),x);	
+	}
+    else
+    {
+    	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
+	}
+}
+void waitput(string st,int time)
+{
+	for(int i=0;i<st.length();i++)
+	{
+		cout<<st[i];
+		Sleep(time);
+	}
+}
+void maps(int a,int b)
+{
+	color(3);
+	for(int i=0;i<=a*2+2;i++) 
+	{
+		printf("-");
+	} 
+	printf("\n");
+	for(int i=1;i<=a;i++)
+	{
+		printf("|");
+		for(int j=1;j<=b;j++) 
+		{
+			switch(map[s][i][j])
+			{
+				case '.':
+					color(3);
+					break;
+				case '*':
+					color(3);
+					break;
+				case '#':
+					color(2);
+					break;
+				case '!':
+					color(4);
+					break;
+				case '^':
+					color(7);
+					break;
+				case 'v':
+					color(7);
+					break;
+				case '>':
+					color(7);
+					break;
+				case '<':
+					color(7);
+					break;
+				case '$':
+					color(7);
+					break;
+			}
+			printf("%c ",map[s][i][j]);
+			color(3);
+		}
+		printf("|\n");
+	}
+	for(int i=0;i<=a*2+2;i++) 
+	{
+		printf("-");
+	}
+	printf("\n时间是%d:%d:%d",time1/3600,time1%3600/60,time1%60);
+	printf("\n您的血量是%d，伤害是%d,关卡是%d,复活卡有%d张",rp,hurt,num,fh);
+	printf("\nboss血量是%d，伤害是%d",boss.rp,boss.hurt);
+}
+void bei_jing()
+{
+	color(12);
+	printf("\n\n\n\n"); 
+	waitput("                             欢迎来到幻影手枪!",150);
+	printf("\n\n"); 
+	color(15);
+	waitput("                             作者：郭梓延",150);
+	printf("\n\n"); 
+	color(9);
+	waitput("                             版本：v.2.0",150);
+	printf("\n\n"); 
+	color(3);
+	for(int i=1;i<=28;i++)
+	{
+		printf(" ");
+	} 
+	system("pause"); 
+	system("cls");
+}
+void jia_zai()
+{
+	system("cls"); 
+	color(12);
+	waitput("游戏正在加载中，请稍后......",125);
+	Sleep(1750); 
+	system("cls");
+}
+void you_xi()
+{
+	system("cls");
+	waitput("游戏规则(单人模式):",175);  
+	printf("\n"); 
+	color(15);
+	waitput("'w''s''a''d'进行上下左右移动，'k'代表发射子弹，'t'代表退出游戏，'q'代表不动",100); 
+	color(12);
+	printf("\n");
+	waitput("满血10滴，每当受到伤害时，血量-1。",100);  
+	printf("\n"); 
+	color(15);
+	waitput("玩家用符号'#'表示，子弹用'>''<''^''v'表示",100);
+	printf("\n");
+	color(12);
+	waitput("敌人用符号'!'表示，他的子弹用'$'表示",100);
+	printf("\n");
+	color(15);
+	waitput("墙壁用'*'表示（不能穿过）",100);
+	color(12);
+	printf("\n");
+	waitput("玩家伤害每加五关就会+1.",100);
+	color(15);
+	printf("\n");
+	waitput("玩家受伤时，玩家的位置会变成'W'符号，同样，敌人受伤时符号也会变成'H'。",100);
+	printf("\n");
+	color(12);
+	waitput("初始时会有1张复活卡，死后可以复活一次，每过5关奖励一张复活卡。",100); 
+	printf("\n");
+	color(15);
+	waitput("对手强度会随着关卡变难而增强。",100); 
+	printf("\n\n\n");
+	color(3);
+	waitput("双人模式：",100); 
+	printf("\n");
+	color(12);
+	waitput("玩家一用符号@表示，他的子弹用%表示。",100);
+	color(15);
+	printf("\n");
+	waitput("玩家二用符号#表示，他的子弹用$表示。",100); 
+	printf("\n");
+	color(12);
+	waitput("每人满血10滴，每当受到伤害时，血量-1。",100);  
+	color(15);
+	printf("\n"); 
+	waitput("玩家一用'w''s''a''d'进行上下左右移动，'k'代表发射子弹，'q'代表不动",100); 
+	color(12);
+	printf("\n");
+	waitput("玩家二用'8''5''4''6'进行上下左右移动，'0'代表发射子弹，'/'代表不动",100); 
+	color(15);
+	printf("\n");
+	waitput("墙壁用'*'表示（不能穿过）",100); 
+	color(12);
+	printf("\n");
+	waitput("玩家一受伤时，玩家的位置会变成'W'符号，玩家二受伤时符号会变成'H'。",100); 
+	color(15);
+	printf("\n");
+	system("pause"); 
+	color(3);
+	system("cls");
+}
+void fly_zidan()
+{
+	if(map[s][zi_dan.x][zi_dan.y]=='v') 
+	{
+		map[s][zi_dan.x][zi_dan.y]='.';
+	}
+	if(map[s][zi_dan.x][zi_dan.y]=='<') 
+	{
+		map[s][zi_dan.x][zi_dan.y]='.';
+	}
+	if(map[s][zi_dan.x][zi_dan.y]=='>')
+	{
+		map[s][zi_dan.x][zi_dan.y]='.';
+	} 
+	if(map[s][zi_dan.x][zi_dan.y]=='^') 
+	{
+		map[s][zi_dan.x][zi_dan.y]='.';
+	}
+	if(zi_dan.way=='d') 
+	{
+		zi_dan.y++;
+	}
+	if(zi_dan.way=='a') 
+	{
+		zi_dan.y--;
+	}
+	if(zi_dan.way=='w') 
+	{
+		zi_dan.x--;
+	}
+	if(zi_dan.way=='s') 
+	{
+		zi_dan.x++;
+	}
+	if(zi_dan.x==0||zi_dan.x==21||zi_dan.y==0||zi_dan.y==21) 
+	{
+		zi_dan.now=false;
+		return;
+	}
+	if(zi_dan.x==boss.x&&boss.y==zi_dan.y) 
+	{
+		map[s][boss.x][boss.y]='H';
+		boss.rp-=hurt;
+		zi_dan.now=false;
+		return;
+	}
+	if(map[s][zi_dan.x][zi_dan.y]=='*') 
+	{
+		zi_dan.now=false;
+		return;
+	}
+	if(zi_dan.way=='w') 
+	{
+		map[s][zi_dan.x][zi_dan.y]='^'; 
+	}
+	if(zi_dan.way=='s') 
+	{
+		map[s][zi_dan.x][zi_dan.y]='v'; 
+	}
+	if(zi_dan.way=='d') 
+	{
+		map[s][zi_dan.x][zi_dan.y]='>'; 
+	}
+	if(zi_dan.way=='a') 
+	{
+		map[s][zi_dan.x][zi_dan.y]='<'; 
+	}
+}
+char putin()
+{
+	char k='.';
+	while(k!='w'&&k!='s'&&k!='a'&&k!='d'&&k!='k'&&k!='t'&&k!='q') 
+	{
+		k=getch();
+	}
+	return k;
+}
+void boss_she()
+{
+	num++; 
+	map[s][boss.x][boss.y]='.';
+	boss.x=random(20);
+	boss.y=random(20);
+	boss.x++;
+	boss.y++;
+	while(boss.x==x&&boss.y==y||map[s][boss.x][boss.y]=='*') 
+	{ 
+		boss.x=random(20);
+		boss.y=random(20);
+		boss.x++;
+		boss.y++; 
+	}
+	boss.rp=boss.last+2; 
+	if(boss.last%2==0)
+	{
+		boss.hurt++; 
+	}
+	boss.last++;
+}
+void fly_zidan2()
+{
+	if(map[s][zidan.x][zidan.y]=='$') 
+	{
+		map[s][zidan.x][zidan.y]='.';
+	}
+	if(zidan.way=='d') 
+	{
+		zidan.y++;
+	}
+	if(zidan.way=='a') 
+	{
+		zidan.y--;
+	}
+	if(zidan.way=='w') 
+	{
+		zidan.x--;
+	}
+	if(zidan.way=='s') 
+	{
+		zidan.x++;
+	}
+	if(zidan.x==0||zidan.x==21||zidan.y==0||zidan.y==21) 
+	{
+		zidan.now=false;
+		return;
+	}
+	if(map[s][zidan.x][zidan.y]=='*') 
+	{
+		zidan.now=false;
+		return;
+	}
+	if(zidan.x==x&&y==zidan.y) 
+	{
+		map[s][x][y]='W';
+		rp-=boss.hurt;
+		zidan.now=false;
+		return;
+	}
+	if(zidan.x==zi_dan.x&&zidan.y==zi_dan.y) 
+	{
+		zidan.now=false;
+		zi_dan.now=false;
+		map[s][zidan.x][zidan.y]='.';
+		map[s][zi_dan.x][zi_dan.y]='.';
+		return;
+	}
+	if(zidan.way=='w') 
+	{
+		map[s][zidan.x][zidan.y]='$'; 
+	}
+	if(zidan.way=='s') 
+	{
+		map[s][zidan.x][zidan.y]='$'; 
+	}
+	if(zidan.way=='d') 
+	{
+		map[s][zidan.x][zidan.y]='$'; 
+	}
+	if(zidan.way=='a') 
+	{
+		map[s][zidan.x][zidan.y]='$'; 
+	}
+}
+void bossmove()
+{
+	int move=random(4); 
+	move++;
+	if(move==1) 
+	{
+		boss.y--;
+		bway='a';
+	}
+	if(move==2) 
+	{
+		boss.y++;
+		bway='d';
+	}
+	if(move==3) 
+	{
+		boss.x++;
+		bway='s';
+	}
+	if(move==4) 
+	{
+		boss.x--;
+		bway='w';
+	}
+	if(boss.x==x&&boss.y==y) 
+	{
+		if(move==1) 
+		{
+			boss.y++;
+			bway='a';
+		}
+		if(move==2) 
+		{
+			boss.y--;
+			bway='d';
+		}
+		if(move==3)
+		{
+			boss.x--;
+			bway='s';
+		} 
+		if(move==4) 
+		{
+			boss.x++;
+			bway='w';
+		}
+		bossmove();
+	}
+	if(map[s][boss.x][boss.y]=='*') 
+	{
+		if(move==1) 
+		{
+			boss.y++;
+			bway='a';
+		}
+		if(move==2) 
+		{
+			boss.y--;
+			bway='d';
+		}
+		if(move==3)
+		{
+			boss.x--;
+			bway='s';
+		} 
+		if(move==4) 
+		{
+			boss.x++;
+			bway='w';
+		}
+		bossmove();
+	}
+}
+bool gui()
+{
+	waitput("您是否要阅读游戏规则？是y，否则n，其余键当n",100); 
+	if(getch()=='y') 
+	{
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
+}
+void bai_bai()
+{
+	waitput("游戏结束，你退出了游戏",100);
+	exit(0);
+}
+void fly()
+{
+	if(map[s][zi_dan.x][zi_dan.y]=='v') 
+	{
+		map[s][zi_dan.x][zi_dan.y]='.';
+	}
+	if(map[s][zi_dan.x][zi_dan.y]=='<') 
+	{
+		map[s][zi_dan.x][zi_dan.y]='.';
+	}
+	if(map[s][zi_dan.x][zi_dan.y]=='>') 
+	{
+		map[s][zi_dan.x][zi_dan.y]='.';
+	}
+	if(map[s][zi_dan.x][zi_dan.y]=='^') 
+	{
+		map[s][zi_dan.x][zi_dan.y]='.';
+	}
+	zi_dan.now=true;
+	zi_dan.x=x;
+	zi_dan.y=y;
+	zi_dan.way=way;
+}
+void kill()
+{
+	system("cls");
+	waitput("you killed the boss!",100); 
+	printf("\n");
+	waitput("现在进入第",100); 
+	printf("%d",num+1);  
+	waitput("关",100);
+	system("cls");
+	Sleep(1000);
+	maps(20,20);
+	boss_she();
+	system("cls");
+	if(num%5==0) 
+	{
+		fh++;
+		hurt++;
+	}
+}
+bool shou_ye()
+{
+	waitput("你想选择哪个游戏模式？a表示单人模式，b表示双人模式，其余的当a。",100);
+	char k=getch();
+	if(k=='b') 
+	{
+		return false;
+	}
+	else 
+	{
+		return true;
+	}
+}
+void maps2(int a,int b)
+{
+	color(3);
+	for(int i=0;i<=a*2+2;i++) 
+	{
+		printf("-");
+	} 
+	printf("\n");
+	for(int i=1;i<=a;i++)
+	{
+		printf("|");
+		for(int j=1;j<=b;j++) 
+		{
+			switch(map[s][i][j])
+			{
+				case '.':
+					color(3);
+					break;
+				case '*':
+					color(3);
+					break;
+				case '#':
+					color(2);
+					break;
+				case '@':
+					color(2);
+					break;
+				case '$':
+					color(7);
+					break;
+				case '%':
+					color(7);
+					break;
+			}
+			printf("%c ",map[s][i][j]);
+			color(3);
+		}
+		printf("|\n");
+	}
+	for(int i=0;i<=a*2+2;i++) 
+	{
+		printf("-");
+	}
+	printf("\n时间是%d:%d:%d",time1/3600,time1%3600/60,time1%60);
+	printf("\n玩家一的血量是%d，伤害是1",rp1);
+	printf("\n玩家二的血量是%d，伤害是1",rp2);
+}
+void flyzidan1()
+{
+	if(map[s][zidan1.x][zidan1.y]=='%') 
+	{
+		map[s][zidan1.x][zidan1.y]='.';
+	}
+	if(zidan1.way=='d') 
+	{
+		zidan1.y++;
+	}
+	if(zidan1.way=='a')
+	{
+		zidan1.y--;
+	} 
+	if(zidan1.way=='w') 
+	{
+		zidan1.x--;
+	}
+	if(zidan1.way=='s') 
+	{
+		zidan1.x++;
+	}
+	if(zidan1.x==0||zidan1.x==21||zidan1.y==0||zidan1.y==21) 
+	{
+		zidan1.now=false;
+		return;
+	}
+	if(zidan1.x==x2&&y2==zidan1.y) 
+	{
+		map[s][x2][y2]='H';
+		rp2--;
+		zidan1.now=false;
+		return;
+	}
+	if(map[s][zidan1.x][zidan1.y]=='*') 
+	{
+		zidan1.now=false;
+		return;
+	}
+	map[s][zidan1.x][zidan1.y]='%'; 
+}
+char putin1()
+{
+	char k='.';
+	while(k!='w'&&k!='s'&&k!='a'&&k!='d'&&k!='k'&&k!='q'&&k!='4'&&k!='5'&&k!='6'&&k!='8'&&k!='0'&&k!='t'&&k!='/') 
+	{
+		k=getch();
+	}
+	return k;
+}
+void flyzidan2()
+{
+	if(map[s][zidan2.x][zidan2.y]=='$') 
+	{
+		map[s][zidan2.x][zidan2.y]='.';
+	}
+	if(zidan2.way=='d') 
+	{
+		zidan2.y++;
+	}
+	if(zidan2.way=='a') 
+	{
+		zidan2.y--;
+	}
+	if(zidan2.way=='w')
+	{
+		zidan2.x--;
+	} 
+	if(zidan2.way=='s') 
+	{
+		zidan2.x++;
+	}
+	if(zidan2.x==0||zidan2.x==21||zidan2.y==0||zidan2.y==21) 
+	{
+		zidan2.now=false;
+		return;
+	}
+	if(map[s][zidan2.x][zidan2.y]=='*') 
+	{
+		zidan.now=false;
+		return;
+	}
+	if(zidan2.x==x1&&y1==zidan2.y) 
+	{
+		map[s][x1][y1]='W';
+		rp1--;
+		zidan2.now=false;
+		return;
+	}
+	if(zidan2.x==zidan1.x&&zidan2.y==zidan1.y) 
+	{
+		zidan2.now=false;
+		zidan1.now=false;
+		map[s][zidan2.x][zidan2.y]='.';
+		map[s][zidan2.x][zidan2.y]='.';
+		return;
+	}
+	map[s][zidan2.x][zidan2.y]='$'; 
+}
+void fly1()
+{
+	if(map[s][zidan1.x][zidan1.y]=='%') 
+	{
+		map[s][zidan1.x][zidan1.y]='.';
+	}
+	zidan1.now=true;
+	zidan1.x=x1;
+	zidan1.y=y1;
+	zidan1.way=way1;
+}
+void fly2()
+{
+	if(map[s][zidan2.x][zidan2.y]=='&') 
+	{
+		map[s][zidan2.x][zidan2.y]='.';
+	}
+	zidan2.now=true;
+	zidan2.x=x2;
+	zidan2.y=y2;
+	zidan2.way=way2;
+}
+string yong_hu()
+{
+	system("cls");
+	color(14);
+	waitput("请输入您的名字（不多于20个字符），要输回车:",100);
+	string st="";
+	cin>>st;
+	color(3);
+	return st;
+}
+int yunshi()
+{
+	system("cls");
+	color(9);
+	waitput("在此之前，我们现在先来抽抽这次的运势吧！",100); 
+	printf("\n");
+	waitput("先输入你的幸运数吧(要输入回车)",100);
+	string st;
+	cin>>st;
+	int s=random(18);
+	color(3);
+	s++;
+	return s;
+}
+void da_xiong()
+{
+	system("cls");
+	color(8);
+	waitput("这次的运气超差，只得了大凶，祝你游戏好运！",100);
+	color(3);
+	system("cls");
+}
+void xiong()
+{
+	system("cls");
+	color(6);
+	waitput("这次的运气较差，只得了凶，祝你游戏好运！",100);
+	color(3);
+	system("cls");
+}
+void zhong_ping()
+{
+	system("cls");
+	color(6);
+	waitput("这次的运气一般，得了中平，祝你游戏愉快！",100);
+	color(3);
+	system("cls");
+}
+void xiao_ji()
+{
+	system("cls");
+	color(13);
+	waitput("这次的运气较好，得了小吉，祝你游戏愉快！",100);
+	color(3);
+	system("cls");
+}
+void zhong_ji()
+{
+	system("cls");
+	color(13);
+	waitput("这次的运气超好，得了中吉，祝你游戏好运！",100);
+	color(3);
+	system("cls");
+}
+void da_ji()
+{
+	system("cls");
+	color(12); 
+	waitput("这次的运气异常的好，得了大吉，祝你游戏好运！",100);
+	color(3);
+	system("cls");
+}
+int di_tu()
+{
+	int s=random(3);
+	return s;
+}
+int main()
+{
+	srand(time(0)); 
+	system("color 03");
+	bei_jing();  
+	if(gui()) 
+	{
+		you_xi();
+	}  
+	string name=yong_hu();
+	color(11);
+	waitput("好的，",100);
+	cout<<name;
+	waitput("，准备好了吗？现在开始游戏！",100);
+	color(3);
+	int s=yunshi();
+	if(s==1)
+	{
+		da_xiong();
+	}
+	if(s>=2&&s<=4)
+	{
+		xiong();
+	}
+	if(s>=5&&s<=9) 
+	{
+		zhong_ji();
+	}
+	if(s>=10&&s<=14)
+	{
+		xiao_ji();
+	}
+	if(s>=15&&s<=17)
+	{
+		zhong_ji();
+	}
+	if(s==18)
+	{
+		da_ji();
+	}
+	s=di_tu(); 
+	jia_zai();
+	bool flag=shou_ye();
+	if(flag)
+	{
+		system("cls");
+		x=10; 
+		y=10;  
+		zi_dan.way=' '; 
+		way='w'; 
+		boss.last=0;
+		zidan.way=' '; 
+		bway='w'; 
+		boss_she();
+		while(rp>0||fh>=1)
+		{
+			map[s][boss.x][boss.y]='!'; 
+			map[s][x][y]='#';
+			if(boss.rp==0) kill();
+			maps(20,20); 
+			char move=putin(); 
+			map[s][boss.x][boss.y]='.'; 
+			map[s][x][y]='.';
+			if(move=='a') 
+			{
+				y--;
+				way='a';
+			}
+			if(move=='d') 
+			{
+				y++;
+				way='d';
+			}
+			if(move=='s') 
+			{
+				x++;
+				way='s';
+			}
+			if(move=='w') 
+			{
+				x--;
+				way='w';
+			}
+			if(move=='k') 
+			{
+				fly();
+			}
+			if(move=='q');
+			if(move=='t') 
+			{
+				system("cls");
+				bai_bai();
+			} 
+			bossmove();
+			if(x==0) 
+			{
+				x=1;
+			}  
+			if(x==21) 
+			{
+				x=20;
+			}
+			if(y==0) 
+			{
+				y=1;  
+			}
+			if(y==21)
+			{
+				y=20;
+			} 
+			if(map[s][x][y]=='*') 
+			{
+				if(move=='a')
+				{
+					y++;
+					way='a';
+				} 
+				if(move=='d')
+				{
+					y--;
+					way='d';
+				} 
+				if(move=='s') 
+				{
+					x--;
+					way='s';
+				}
+				if(move=='w')
+				{
+					x++;
+					way='w';
+				} 
+			}
+			if(boss.x==0) 
+			{
+				boss.x=1;  
+			}
+			if(boss.x==21) 
+			{
+				boss.x=20;
+			}
+			if(boss.y==0) 
+			{
+				boss.y=1;  
+			}
+			if(boss.y==21) 
+			{
+				boss.y=20;
+			}
+			if(zi_dan.now) 
+			{
+				fly_zidan();
+			}
+			if(zidan.now==true) 
+			{
+				fly_zidan2();  
+			}
+			if(zidan.now==false)
+			{
+				zidan.now=true;
+				zidan.x=boss.x;
+				zidan.y=boss.y;
+				zidan.way=bway;
+			}
+			system("cls"); 
+			time1++; 
+			if(rp<=0&&fh>=1)
+			{
+				rp=10;
+				fh--;
+			}
+		}
+	}
+	else {
+		system("cls");
+		x1=1;
+		y1=2;
+		x2=19;
+		y2=20; 
+		map[s][x1][y1]='@';
+		map[s][x2][y2]='#';
+		while(true)
+		{
+			maps2(20,20);
+			char move=putin1();
+			map[s][x1][y1]='.'; 
+			map[s][x2][y2]='.'; 
+			if(move=='a') 
+			{
+				y1--;
+				way1='a';
+			}
+			if(move=='d') 
+			{
+				y1++;
+				way1='d';
+			}
+			if(move=='s') 
+			{
+				x1++;
+				way1='s';
+			}
+			if(move=='w')
+			{
+				x1--;
+				way1='w';
+			} 
+			if(move=='k') 
+			{
+				fly1();
+			}
+			if(move=='q');
+			if(move=='4') 
+			{
+				y2--;
+				way2='a';
+			}
+			if(move=='6') 
+			{
+				y2++;
+				way2='d';
+			}
+			if(move=='5') 
+			{
+				x2++;
+				way2='s';
+			}
+			if(move=='8') 
+			{
+				x2--;
+				way2='w';
+			}
+			if(move=='0') 
+			{
+				fly2();
+			}
+			if(move=='/');
+			if(x2==0) 
+			{
+				x2=1; 
+			} 
+			if(x2==21)
+			{
+				x2=20;
+			} 
+			if(y2==0) 
+			{
+				y2=1;  
+			}
+			if(y2==21) 
+			{
+				y2=20;
+			}
+			if(x1==0) 
+			{
+				x1=1;  
+			}
+			if(x1==21) 
+			{
+				x1=20;
+			}
+			if(y1==0) 
+			{
+				y1=1;  
+			}
+			if(y1==21) 
+			{
+				y1=20;
+			}
+			if(map[s][x1][y1]=='*') 
+			{
+				if(move=='a') 
+				{
+					y1++;
+					way1='a';
+				}
+				if(move=='d') 
+				{
+					y1--;
+					way1='d';
+				}
+				if(move=='s') 
+				{
+					x1--;
+					way1='s';
+				}
+				if(move=='w') 
+				{
+					x1++;
+					way1='w';
+				}
+			}
+			if(map[s][x2][y2]=='*') 
+			{
+				if(move=='4') 
+				{
+					y2++;
+					way2='a';
+					if(move=='6') 
+					{
+						y2--;
+						way2='d';
+					}
+					if(move=='5') 
+					{
+						x2--;
+						way2='s';
+					}
+					if(move=='8') 
+					{
+						x2++;
+						way2='w';
+					}
+				}
+			}
+			map[s][x1][y1]='@'; 
+			map[s][x2][y2]='#';
+			if(zidan2.now)
+			{
+				flyzidan2();
+			}
+			if(zidan1.now) 
+			{
+				flyzidan1();
+			}
+			system("cls");
+			if(rp2<=0)
+			{
+				waitput("玩家一获胜！",100);
+				printf("\n");
+				waitput("游戏结束。",100);
+				return 0; 
+			}
+			if(rp1<=0)
+			{
+				waitput("玩家二获胜！",100);
+				printf("\n");
+				waitput("游戏结束。",100);
+				return 0; 
+			}
+		}
+		return 0;
+	}
+	system("cls");
+	waitput("游戏结束，您已死亡，您闯到了第",100);
+	printf("%d",num+1);
+	waitput("关",100); 
+	return 0;
+}                        
